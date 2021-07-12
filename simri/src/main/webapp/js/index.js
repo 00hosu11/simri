@@ -78,6 +78,8 @@ $(function(){
 				}
 				if(items.point == 0){
 					items.point = '무료';
+				}else{
+					items.point = items.point+"p";
 				}
 				
 				$('<div/>',{
@@ -100,7 +102,7 @@ $(function(){
 					
 				}).append($('<span/>',{
 					 class: "badge rounded-pill bg-warning mb-1",
-					 text: items.point+"p",
+					 text: items.point,
 					 
 				}))).append($('<div/>',{
 					class:"small text-muted mb-2",

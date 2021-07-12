@@ -139,7 +139,7 @@
        <![CDATA[
        select * from 
       (select rownum rn, tt.* from
-      (select * from pointHistory where email=#{email} order by pointhistoryseq desc
+      (select * from pointHistory where email=#{email}  order by pointlogtime desc
                      )tt)
       where rn>= #{startNum} and rn<= #{endNum}
        ]]>

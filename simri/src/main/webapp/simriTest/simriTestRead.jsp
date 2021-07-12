@@ -6,7 +6,7 @@
 <div class="col-lg-12">
 <form id="simriTestReadForm" method="post" action="/simriTest/simriTest/simriTestRead">	
 <input type="hidden" name="seq" id="seq" value="${seq }">
-<input type="hidden"  name="similarSeq" id="similarSeq">
+<input type="hidden"  name="similarSeq" id="similarSeq" value="${similarSeq }">
 <input type="hidden" name="category" id="category" value="심리 테스트">
 <input type="hidden" name="hit" id="hit" value= "${hit }">
 <input type="hidden" name="memId" id="memId" value="${memId }">

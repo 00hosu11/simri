@@ -208,7 +208,7 @@ $(function(){
 							}))							
 						).append($('<li/>').append($('<a/>',{
 								class:'dropdown-item',
-								href:'/simriTest/simriTest/reply_Delete?replySeq='+items.replySeq+'&seq='+$('#seq').val(),
+								href:'/simriTest/love/magazineReply_Delete?replySeq='+items.replySeq+'&seq='+$('#seq').val(),
 								style: 'cursor:pointer;',
 								text:'댓글삭제'
 							}))							

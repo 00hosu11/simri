@@ -131,27 +131,35 @@ public class SimriController {
 			}
 		
 		LikeSingoDTO likeSingoDTO = new LikeSingoDTO();
-		if (session.getAttribute("memId") == null) {
-			likeSingoDTO.setEmail("null");
+		
+		
+
+		SimriDTO simriDTO = null;
+		if (similarSeq.equals("0")) {
+			if (session.getAttribute("memId") == null) {
+				likeSingoDTO.setEmail("null");
+			} else {
+				likeSingoDTO.setEmail((String) session.getAttribute("memId"));
+				likeSingoDTO.setSeq(Integer.parseInt(seq));
+			}
+			simriDTO = simriService.getCommunity(seq);
+			model.addAttribute("seq", seq);
 		} else {
-			likeSingoDTO.setEmail((String) session.getAttribute("memId"));
-			likeSingoDTO.setSeq(Integer.parseInt(seq));
+			if (session.getAttribute("memId") == null) {
+				likeSingoDTO.setEmail("null");
+			} else {
+				likeSingoDTO.setEmail((String) session.getAttribute("memId"));
+				likeSingoDTO.setSeq(Integer.parseInt(similarSeq));
+			}
+			simriDTO = simriService.getCommunity(similarSeq);
+			model.addAttribute("seq", similarSeq);
 		}
+		
 		int onoff = simriService.testLikeCheck(likeSingoDTO);
 
 		if (onoff == 2)
 			onoff = 0;
 		model.addAttribute("onoff", onoff);
-
-		SimriDTO simriDTO = null;
-		if (similarSeq.equals("0")) {
-			simriDTO = simriService.getCommunity(seq);
-			model.addAttribute("seq", seq);
-		} else {
-			simriDTO = simriService.getCommunity(similarSeq);
-			model.addAttribute("seq", similarSeq);
-		}
-
 		model.addAttribute("memId", session.getAttribute("memId"));
 		model.addAttribute("simriDTO", simriDTO);
 		model.addAttribute("display", "/simriTest/simriTestRead.jsp");

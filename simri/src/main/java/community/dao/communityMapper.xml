@@ -57,7 +57,7 @@
        (select rownum rn, tt. * from 
        (select * from community
        where category in('[팔레트]빨강','[팔레트]파랑' ,'[팔레트]노랑', '[팔레트]초록' , '유머 게시판', '연애 게시판', '고민&amp;상담 게시판') 
-       order by seq desc)tt)
+       order by comlogtime desc)tt)
        where <![CDATA[rn>= #{startNum}]]> and  <![CDATA[rn<= #{endNum}]]>
     </select>
     
@@ -67,7 +67,7 @@
        (select rownum rn, tt. * from 
        (select * from community 
         where category in('[팔레트]빨강','[팔레트]파랑' ,'[팔레트]노랑', '[팔레트]초록') 
-        order by seq desc)tt)
+        order by comlogtime desc)tt)
        where <![CDATA[rn>= #{startNum}]]> and  <![CDATA[rn<= #{endNum}]]>
     </select>
     
@@ -77,7 +77,7 @@
        (select rownum rn, tt. * from 
        (select * from community 
         where category = #{sideCategory}
-        order by seq desc)tt)
+        order by comlogtime desc)tt)
        where <![CDATA[rn>= ${startNum}]]> and  <![CDATA[rn<= ${endNum}]]>
     </select>
     
@@ -104,7 +104,7 @@
 	       <![CDATA[
 	       select * from 
 	      (select rownum rn, tt.* from
-	      (select * from community where  ${searchOption} like '%'||#{keyword}||'%' order by seq desc
+	      (select * from community where  ${searchOption} like '%'||#{keyword}||'%' order by comlogtime desc
 	       )tt)
 	      where rn>= #{startNum} and rn<= #{endNum}
 	       ]]>
@@ -117,7 +117,7 @@
 	      (select rownum rn, tt.* from
 	      (select * from community where  ${searchOption} like '%'||#{keyword}||'%' 
 	       							and category in('[팔레트]빨강','[팔레트]파랑' ,'[팔레트]노랑', '[팔레트]초록') 
-	       							order by seq desc
+	       							order by comlogtime desc
 	                    			 )tt)
 	      where rn>= #{startNum} and rn<= #{endNum}
 	       ]]>
@@ -131,7 +131,7 @@
 	      (select rownum rn, tt.* from
 	      (select * from community where  ${searchOption} like '%'||#{keyword}||'%'
 	      									 and category = #{sideCategory}
-	      									 order by seq desc
+	      									 order by comlogtime desc
 	                   						  )tt)
 	      where rn>= #{startNum} and rn<= #{endNum}
 	       ]]>
@@ -145,7 +145,7 @@
     
     <!-- 등록한 글 seq -->
     <select id="getSeq" resultType="int">
-       select max(seq) from community
+       select seq from(select * from community order by comlogtime desc) where rownum =1
     </select>
     
      <!-- 글 갖고오기 -->
@@ -239,7 +239,7 @@
     <select id="getCommunity_Notice" parameterType="java.util.Map" resultType="community">
        select * from 
        (select rownum rn, tt. * from 
-       (select * from community where category= '[공지사항]'  order by seq desc)tt)
+       (select * from community where category= '[공지사항]'  order by comlogtime desc)tt)
        where <![CDATA[rn>= #{startNum}]]> and  <![CDATA[rn<= #{endNum}]]>
     </select>
 	
@@ -249,7 +249,7 @@
        (select rownum rn, tt. * from 
        (select * from community
        where category in('[팔레트]빨강','[팔레트]파랑' ,'[팔레트]노랑', '[팔레트]초록' , '유머 게시판', '연애 게시판', '고민&amp;상담 게시판') 
-       order by seq desc)tt)
+       order by comlogtime desc)tt)
        where <![CDATA[rn>= #{startNum}]]> and  <![CDATA[rn<= #{endNum}]]>
     </select>
     
@@ -257,7 +257,7 @@
     <select id="getCommunity_Humor" parameterType="java.util.Map" resultType="community">
        select * from 
        (select rownum rn, tt. * from 
-       (select * from community where category= '유머 게시판' order by seq desc)tt)
+       (select * from community where category= '유머 게시판' order by comlogtime desc)tt)
        where <![CDATA[rn>= #{startNum}]]> and  <![CDATA[rn<= #{endNum}]]>
     </select>
     
@@ -265,7 +265,7 @@
     <select id="getCommunity_Love" parameterType="java.util.Map" resultType="community">
        select * from 
        (select rownum rn, tt. * from 
-       (select * from community where category= '연애 게시판' order by seq desc)tt)
+       (select * from community where category= '연애 게시판' order by comlogtime desc)tt)
        where <![CDATA[rn>= #{startNum}]]> and  <![CDATA[rn<= #{endNum}]]>
     </select>
     
@@ -273,7 +273,7 @@
     <select id="getCommunity_QnA" parameterType="java.util.Map" resultType="community">
        select * from 
        (select rownum rn, tt. * from 	
-       (select * from community where category= '고민&amp;상담 게시판' order by seq desc)tt)<!-- mapper는 &가 안되서 &amp;로 해놓음 -->
+       (select * from community where category= '고민&amp;상담 게시판' order by comlogtime desc)tt)<!-- mapper는 &가 안되서 &amp;로 해놓음 -->
        where <![CDATA[rn>= #{startNum}]]> and  <![CDATA[rn<= #{endNum}]]>
     </select>
     

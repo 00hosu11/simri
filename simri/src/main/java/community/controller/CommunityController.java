@@ -222,6 +222,7 @@ public class CommunityController {
 		mav.addObject("pg", map.get("pg"));
 		mav.addObject("list", list);
 		mav.addObject("memNickname", memNickname);
+		mav.addObject("memPalette", session.getAttribute("memPalette"));
 		mav.addObject("communityPaging", communityPaging);
 		mav.addObject("category", category);
 		mav.setViewName("jsonView");
@@ -389,7 +390,7 @@ public class CommunityController {
    @RequestMapping(value = "/community/reply_Delete", method = RequestMethod.GET)
    public String reply_Delete(Model model, @RequestParam(required = false, defaultValue = "1") String pg,
          @RequestParam(required = false, defaultValue = "28") String seq, @RequestParam String replySeq,
-         @RequestParam String com) {
+         @RequestParam(required =false, defaultValue="0") String com) {
       communityService.reply_Delete(replySeq);
       model.addAttribute("pg", pg);
       model.addAttribute("seq", seq);
